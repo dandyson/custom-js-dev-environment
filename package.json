@@ -1,0 +1,25 @@
+{
+  "name": "modern-js-dev-environment",
+  "version": "1.0.0",
+  "description": "My version of a js dev env from Cory House's Pluralsight course 'Building a Javascript Development Environment'",
+  "main": "./src/index.js",
+  "scripts": {
+    "prestart": "echo 'Starting server...'",
+    "start": "node buildScripts/srcServer.js",
+    "localtunnel": "lt --port 3000 --subdomain js-dev-env",
+    "share": "npm-run-all --parallel start localtunnel"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "babel-loader": "^8.3.0",
+    "express": "^4.19.2",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "webpack-hot-middleware": "^2.26.1"
+  },
+  "dependencies": {
+    "numeral": "^2.0.6"
+  }
+}
