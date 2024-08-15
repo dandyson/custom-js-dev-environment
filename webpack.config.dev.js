@@ -1,15 +1,18 @@
-import path from "path";
+const path = require('path');
+const webpack = require('webpack');
 
-export default {
-  mode: "development",
-  devtool: "eval-source-map",
-  entry: "./src/index.js",
+module.exports = {
+  mode: 'development',
+  devtool: 'eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client?reload=true', // Enable HMR
+    './src/index.js'
+  ],
   output: {
-    path: path.resolve(__dirname, "src"),
-    publicPath: "/",
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
-  plugins: [],
   module: {
     rules: [
       {
@@ -18,14 +21,22 @@ export default {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-    ],
+      }
+    ]
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin() // Enable HMR
+  ],
+  devServer: {
+    static: path.join(__dirname, 'dist'),
+    hot: true,
+    port: 3000
+  }
 };

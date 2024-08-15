@@ -1,9 +1,10 @@
 const express = require('express');
+const open = require('open');
 const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('../webpack.config.js');
+const webpackConfig = require('../webpack.config.dev.js');
 
 const app = express();
 const port = 3000;
@@ -19,6 +20,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../src/index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    open('http://localhost:' + port);
+  }
 });
