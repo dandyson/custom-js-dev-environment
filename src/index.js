@@ -1,5 +1,12 @@
-import "./index.css";
-import numeral from "numeral";
+/* eslint-disable no-console */
 
-const courseValue = numeral(1000).format("$0,0.00");
-console.log(`I would pay ${courseValue} for this awesome course!`);
+/**
+ * @param {number} x
+ * @return {number}
+ */
+const mySqrt = function(x) {
+  let sqrRoot = x ** 0.5;
+  return sqrRoot % 1 === 0 ? sqrRoot : sqrRoot - (sqrRoot % 1);
+};
+
+console.log(mySqrt(1));

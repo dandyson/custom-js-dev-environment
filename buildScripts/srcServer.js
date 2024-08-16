@@ -1,10 +1,17 @@
-const express = require('express');
-const open = require('open');
-const path = require('path');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('../webpack.config.dev.js');
+/* eslint-disable no-console */
+
+import express from 'express';
+import openurl from 'openurl';
+import path from 'path';
+import url from 'url';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config.dev.js';
+
+// Convert import.meta.url to __dirname - this is needed apparently
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
@@ -24,6 +31,6 @@ app.listen(port, (err) => {
   if (err) {
     console.log(err);
   } else {
-    open('http://localhost:' + port);
+    openurl.open('http://localhost:' + port);
   }
 });
