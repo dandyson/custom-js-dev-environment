@@ -1,46 +1,29 @@
 import path from 'path';
-import webpack from 'webpack';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-  mode: 'development',
-  devtool: 'eval-source-map',
+  debug: true,
+  devtool: 'inline-source-map',
+  noInfo: false,
   entry: [
-    'webpack-hot-middleware/client?reload=true', // Enable HMR
-    './src/index.js'
+    path.resolve(__dirname, 'src/index')
   ],
+  target: 'web',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      }
-    ]
+    path: path.resolve(__dirname, 'src'),
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin() // Enable HMR
+    // Create HTML file that includes reference to bundled JS.
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+    })
   ],
-  devServer: {
-    static: path.join(__dirname, 'dist'),
-    hot: true,
-    port: 3000
+  module: {
+    loaders: [
+      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+      {test: /\.css$/, loaders: ['style','css']}
+    ]
   }
-};
+}
